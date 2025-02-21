@@ -20,10 +20,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1  # Adjust to your desired region
 
-    - name: Install dependencies (if any)
-      run: |
-        npm install  # or any other dependency manager like pip, etc.
-
+    
     - name: Zip the Lambda function
       run: |
         zip -r function.zip .  # Include all necessary files
