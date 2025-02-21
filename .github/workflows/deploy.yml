@@ -31,6 +31,6 @@ jobs:
       # Step 4: Update API Gateway (if needed)
       - name: Deploy API Gateway
         run: |
-          aws apigateway create-deployment --rest-api-id 8psorslbwh --stage-name dev
+          aws apigateway create-deployment --rest-api-id cvnjpa7b19 --stage-name dev
 
    
