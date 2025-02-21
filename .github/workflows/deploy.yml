@@ -34,5 +34,5 @@ jobs:
     - name: Invalidate API Gateway cache (optional)
       run: |
         aws apigateway invalidate-cache \
-          --rest-api-id myapi \
+          --rest-api-id 8psorslbwh \
           --stage-name dev
