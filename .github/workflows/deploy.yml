@@ -1,36 +1,43 @@
-name: Deploy AWS Lambda
+name: Deploy Lambda and API Gateway
 
 on:
   push:
     branches:
-      - main  # Trigger on push to main branch
+      - main  # Trigger deployment on push to main branch (or any branch you prefer)
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      # Step 1: Check out the code
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up AWS CLI
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1  # Adjust to your desired region
+      # Step 2: Set up AWS CLI
+      - name: Set up AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1  # Choose your AWS region
 
-    
-    - name: Zip the Lambda function
-      run: |
-        zip -r function.zip .  # Include all necessary files
-
-    - name: Deploy Lambda function
-      run: |
-        aws lambda update-function-code \
-          --function-name myapi \
-          --zip-file fileb://function.zip
-
-   - name: Deploy API Gateway
+      # Step 3: Install dependencies (for Node.js Lambda as an example)
+      - name: Install dependencies
         run: |
-          aws apigateway create-deployment --rest-api-id 8psorslbwh --stage-name dev
+          cd path-to-lambda-directory  # Optional: change directory if Lambda is in a subfolder
+          npm install
+
+      # Step 4: Deploy Lambda function
+      - name: Deploy Lambda Function
+        run: |
+          cd path-to-lambda-directory  # Optional: change directory if Lambda is in a subfolder
+          zip -r function.zip .  # Package the Lambda code into a zip file
+          aws lambda update-function-code --function-name myapi --zip-file fileb://function.zip
+
+      # Step 5: Update API Gateway (if needed)
+      - name: Deploy API Gateway
+        run: |
+          aws apigateway create-deployment --rest-api-id YOUR_API_GATEWAY_ID --stage-name prod
+
+   
