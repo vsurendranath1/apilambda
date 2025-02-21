@@ -31,8 +31,6 @@ jobs:
           --function-name myapi \
           --zip-file fileb://function.zip
 
-    - name: Invalidate API Gateway cache (optional)
-      run: |
-        aws apigateway invalidate-cache \
-          --rest-api-id 8psorslbwh \
-          --stage-name dev
+   - name: Deploy API Gateway
+        run: |
+          aws apigateway create-deployment --rest-api-id 8psorslbwh --stage-name dev
