@@ -28,7 +28,7 @@ jobs:
     - name: Deploy Lambda function
       run: |
         aws lambda update-function-code \
-          --function-name YourLambdaFunctionName \
+          --function-name myapi \
           --zip-file fileb://function.zip
 
     - name: Invalidate API Gateway cache (optional)
