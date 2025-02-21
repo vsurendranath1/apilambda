@@ -21,21 +21,15 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1  # Choose your AWS region
-
-      # Step 3: Install dependencies (for Node.js Lambda as an example)
-      - name: Install dependencies
-        run: |
-          cd path-to-lambda-directory  # Optional: change directory if Lambda is in a subfolder
-          npm install
-
-      # Step 4: Deploy Lambda function
+     
+      # Step 3: Deploy Lambda function
       - name: Deploy Lambda Function
         run: |
           cd path-to-lambda-directory  # Optional: change directory if Lambda is in a subfolder
           zip -r function.zip .  # Package the Lambda code into a zip file
           aws lambda update-function-code --function-name myapi --zip-file fileb://function.zip
 
-      # Step 5: Update API Gateway (if needed)
+      # Step 4: Update API Gateway (if needed)
       - name: Deploy API Gateway
         run: |
           aws apigateway create-deployment --rest-api-id YOUR_API_GATEWAY_ID --stage-name prod
