@@ -25,7 +25,6 @@ jobs:
       # Step 3: Deploy Lambda function
       - name: Deploy Lambda Function
         run: |
-          cd path-to-lambda-directory  # Optional: change directory if Lambda is in a subfolder
           zip -r function.zip .  # Package the Lambda code into a zip file
           aws lambda update-function-code --function-name myapi --zip-file fileb://function.zip
 
